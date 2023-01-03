@@ -1,0 +1,16 @@
+version: '3'
+services:
+  db:
+      image: postgres:latest
+      container_name: postgres
+      restart: always
+      ports:
+        - "54332:5432"
+      environment:
+          # 보호 할 수 있음
+          POSTGRES_USER: '${DB_USER_ID}'
+          POSTGRES_PASSWORD: '${DB_USER_PASSWORD}'
+      # 도커 컨테이너를 없애면 모든 데이터가 사라짐
+      # volumes를 적으면 데이터는 남아있음
+      volumes:
+        - ./data:/var/lib/postgresql/data
