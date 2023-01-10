@@ -25,7 +25,7 @@ export default class User extends BaseEntity {
     @Length(8,255,{message:"비밀번호는 8자리 이상이어야 합니다."})
     password: string;
 
-    // 관계와 관련된 부분
+    // 관계와 관련된 부분 :: 1:N(1대 다)
     @OneToMany(() => Post,(post) => post.user)
     posts:Post[];
 
