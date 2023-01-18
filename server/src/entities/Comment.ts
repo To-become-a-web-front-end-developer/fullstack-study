@@ -36,8 +36,7 @@ class Comment extends BaseEntity {
 
     @Expose() get voteScore(): number {
         const initalValue = 0
-        return this.votes?.reduce((previousValue,currentObject) =>
-            previousValue + (currentObject || 0),initalValue); 
+        return this.votes?.reduce((previousValue,currentObject) => previousValue+(currentObject || 0),initalValue); 
     }
 
     @BeforeInsert()

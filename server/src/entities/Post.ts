@@ -5,6 +5,7 @@ import BaseEntity from "./Entity";
 import Sub from "./Sub";
 import User from "./User";
 import Vote from "./Vote";
+import Comment from "./Comment";
 
 @Entity("posts")
 export default class Post extends BaseEntity{
