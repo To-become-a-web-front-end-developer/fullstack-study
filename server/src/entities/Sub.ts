@@ -1,9 +1,10 @@
 import { Expose } from "class-transformer";
-import { text } from "stream/consumers";
-import { BaseEntity, Column, Entity, Index, JoinColumn, ManyToMany, ManyToOne, OneToMany } from "typeorm";
+import { Column, Entity, Index, JoinColumn,  ManyToOne, OneToMany } from "typeorm";
+import Post from "./Post";
 import User from "./User";
+import BaseEntity from "./Entity";
 
-@Entity("subs");
+@Entity("subs")
 export default class Sub extends BaseEntity{
     @Index()
     @Column({unique: true})
@@ -42,6 +43,6 @@ export default class Sub extends BaseEntity{
     get bannerUrl(): string {
         return this.bannerUrn
             ? `${process.env.APP_URL}/images/${this.bannerUrn}`
-            : undefined
+            : ""
     }
 }

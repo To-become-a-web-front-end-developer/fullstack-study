@@ -1,11 +1,12 @@
 import { Exclude, Expose } from "class-transformer";
 import { BaseEntity, BeforeInsert, Column, Entity, Index, JoinColumn, ManyToOne, OneToMany } from "typeorm";
+import { makeId } from "../utils/helper";
 import Post from "./Post";
 import User from "./User";
 import Vote from "./Vote";
 
 @Entity("comments")
-class Comment extends BaseEntity {
+export default class Comment extends BaseEntity {
     @Index()
     @Column()
     identifier: string;
@@ -21,7 +22,10 @@ class Comment extends BaseEntity {
     user: User;
 
     @Column()
-    postId: Post;
+    postId: number;
+
+    @ManyToOne(() => Post,(post) => post.comments,{nullable: false})
+    post: Post;
 
     @Exclude()
     @OneToMany(() => Vote,(Vote) => Vote.comment)
@@ -36,11 +40,11 @@ class Comment extends BaseEntity {
 
     @Expose() get voteScore(): number {
         const initalValue = 0
-        return this.votes?.reduce((previousValue,currentObject) => previousValue+(currentObject || 0),initalValue); 
+        return this.votes?.reduce((previousValue,currentObject) => previousValue+(currentObject.value || 0),initalValue); 
     }
 
     @BeforeInsert()
     makeId(){
-        this.identifier = this.makeId(8)
+        this.identifier = makeId(8)
     }
 }

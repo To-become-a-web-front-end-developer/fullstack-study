@@ -1,7 +1,10 @@
 import { Exclude } from "class-transformer";
 import { IsEmail, Length } from "class-validator"
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, Index, OneToMany, BeforeInsert } from "typeorm"
+import { Entity,  Column,  Index, OneToMany, BeforeInsert } from "typeorm"
 import bcrypt from "bcryptjs";
+import Post from "./Post";
+import Vote from "./Vote";
+import BaseEntity from "./Entity";
 
 // 데코레이터 클래스는 User 클래스가 Entity임을 나타내는 데 사용된다. CREATE TABLE user 부분과 같다.
 @Entity("users")
@@ -30,10 +33,10 @@ export default class User extends BaseEntity {
     posts:Post[];
 
     @OneToMany(() => Vote,(vote) => vote.user)
-    votes.Vote[];
+    votes:Vote[];
 
     @BeforeInsert()
-    async function hashPassword() {
+    async hashPassword() {
         this.password = await bcrypt.hash(this.password,6);
     }
 
