@@ -1,5 +1,5 @@
 import { Exclude, Expose } from "class-transformer";
-import { BeforeInsert, Column, Entity, Index, JoinColumn, ManyToOne, OneToMany } from "typeorm";
+import { BeforeInsert, Column, Entity, Index, JoinColumn, ManyToOne, OneToMany, PrimaryColumn } from "typeorm";
 import { makeId,slugify } from "../utils/helper";
 import BaseEntity from "./Entity";
 import Sub from "./Sub";
@@ -10,7 +10,7 @@ import Comment from "./Comment";
 @Entity("posts")
 export default class Post extends BaseEntity{
     @Index()
-    @Column()
+    @PrimaryColumn()
     identifier: string;
 
     @Column()
